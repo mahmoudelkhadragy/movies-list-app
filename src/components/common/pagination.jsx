@@ -16,7 +16,7 @@ const Pagination = (props) => {
             key={page}
             className={page === currentPage ? "page-item active" : "page-item"}
           >
-            <a
+            <span
               onClick={() => {
                 onChangePage(page);
               }}
@@ -24,7 +24,7 @@ const Pagination = (props) => {
               style={{ cursor: "pointer" }}
             >
               {page}
-            </a>
+            </span>
           </li>
         ))}
       </ul>
