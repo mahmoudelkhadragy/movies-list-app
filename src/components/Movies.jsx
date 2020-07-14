@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import Like from "./common/Like";
 import Pagination from "./common/pagination";
 import ListGroup from "./common/listGroup";
+import MoviesTable from './moviesTable';
 import { getGenres } from "../services/fakeGenreService";
 import { getMovies } from "../services/fakeMovieService";
 import { paginate } from "../utils/paginate";
@@ -11,12 +11,13 @@ class Movies extends Component {
     movies: [],
     genres: [],
     selectedGenre: "All Movies",
+    sortColumn: {},
     pageSize: 4,
     currentPage: 1,
   };
 
   componentDidMount() {
-    const genres = [{ name: "All Movies" }, ...getGenres()];
+    const genres = [{ _id: '', name: "All Movies" }, ...getGenres()];
     this.setState({ movies: getMovies(), genres });
   }
 
@@ -36,6 +37,10 @@ class Movies extends Component {
   handlePageChange = (page) => {
     this.setState({ currentPage: page });
   };
+
+  handleSort = path => {
+    this.setState({ sortColumn: { path, order: 'asc' } })
+  }
 
   handleGenreSelect = (genre) => {
     this.setState({ selectedGenre: genre, currentPage: 1 });
@@ -74,46 +79,13 @@ class Movies extends Component {
           <p className="text-center">
             There is {filtered.length} movies in Database
           </p>
-          <table className="table">
-            <thead>
-              <tr>
-                <th scope="col">Name</th>
-                <th scope="col">type</th>
-                <th scope="col">rate</th>
-                <th scope="col">Stock</th>
-                <th />
-                <th />
-              </tr>
-            </thead>
-            <tbody>
-              {movies.map((movie) => (
-                <tr key={movie._id}>
-                  <td>{movie.title}</td>
-                  <td>{movie.genre.name}</td>
-                  <td>{movie.dailyRentalRate}</td>
-                  <td>{movie.numberInStock}</td>
-                  <td>
-                    <Like
-                      liked={movie.liked}
-                      onClick={() => {
-                        this.handleLike(movie);
-                      }}
-                    />
-                  </td>
-                  <td>
-                    <button
-                      onClick={() => {
-                        this.handleDeleteMovie(movie);
-                      }}
-                      className="btn btn-danger btn-sm"
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          {/* MoviesTable part */}
+          <MoviesTable
+            movies={movies}
+            onLike={this.handleLike}
+            onDelete={this.handleDeleteMovie}
+            onSort={this.handleSort}
+          />
           {/* pagination part */}
           <Pagination
             itemsCount={filtered.length}
