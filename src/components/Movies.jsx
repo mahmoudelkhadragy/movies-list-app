@@ -82,36 +82,39 @@ class Movies extends Component {
     if (allMovies.length === 0)
       return <p className="text-center my-3">There is no Movies</p>;
     return (
-      <div className="row">
-        {/* filter part */}
-        <div className="col-2">
-          <ListGroup
-            items={genres}
-            selectedGenre={selectedGenre}
-            onItemSelect={this.handleGenreSelect}
-          />
+      <React.Fragment>
+        <h2 className="text-center py-2">All Movies</h2>
+        <div className="row">
+          {/* filter part */}
+          <div className="col-2">
+            <ListGroup
+              items={genres}
+              selectedGenre={selectedGenre}
+              onItemSelect={this.handleGenreSelect}
+            />
+          </div>
+          <div className="col">
+            <p className="text-center">
+              There is {totalCount} movies in Database
+            </p>
+            {/* MoviesTable part */}
+            <MoviesTable
+              movies={movies}
+              sortColumn={sortColumn}
+              onLike={this.handleLike}
+              onDelete={this.handleDeleteMovie}
+              onSort={this.handleSort}
+            />
+            {/* pagination part */}
+            <Pagination
+              itemsCount={totalCount}
+              pageSize={pageSize}
+              onChangePage={this.handlePageChange}
+              currentPage={currentPage}
+            />
+          </div>
         </div>
-        <div className="col">
-          <p className="text-center">
-            There is {totalCount} movies in Database
-          </p>
-          {/* MoviesTable part */}
-          <MoviesTable
-            movies={movies}
-            sortColumn={sortColumn}
-            onLike={this.handleLike}
-            onDelete={this.handleDeleteMovie}
-            onSort={this.handleSort}
-          />
-          {/* pagination part */}
-          <Pagination
-            itemsCount={totalCount}
-            pageSize={pageSize}
-            onChangePage={this.handlePageChange}
-            currentPage={currentPage}
-          />
-        </div>
-      </div>
+      </React.Fragment>
     );
   }
 }
