@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import NavBar from "./components/navbar";
 import { Switch, Route, Redirect } from "react-router-dom";
-import Movies from "./components/Movies";
+import Movies from "./components/movies";
 import Customers from "./components/customers";
 import Rentals from "./components/rentals";
 import MoviesForm from "./components/moviesForm";
