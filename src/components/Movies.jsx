@@ -101,8 +101,8 @@ class Movies extends Component {
       sortColumn,
       searchQuery
     } = this.state;
-
     const { totalCount, data: movies } = this.getPageData();
+    const { user } = this.props;
 
     if (allMovies.length === 0)
       return <p className="text-center my-3">There is no Movies</p>;
@@ -119,7 +119,7 @@ class Movies extends Component {
             />
           </div>
           <div className="col">
-            <Link to="/movies/new" className="btn btn-primary">New Movie</Link>
+            {user && <Link to="/movies/new" className="btn btn-primary">New Movie</Link>}
             <p className="text-center">
               There is {totalCount} movies in Database
             </p>

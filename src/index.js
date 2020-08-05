@@ -6,6 +6,9 @@ import { BrowserRouter } from "react-router-dom";
 import * as serviceWorker from "./serviceWorker";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "font-awesome/css/font-awesome.css";
+
+console.log("power", process.env.REACT_APP_NAME);
+
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
